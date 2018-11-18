@@ -54,7 +54,7 @@ ul.select2-results {
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css"></link>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
-
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <div id="block_container">
    <div id="searchName"></div>
 </div>
@@ -216,6 +216,8 @@ d3.json("tree.json", function(error, tree) {
   }
 
   root.children.forEach(collapse);
+  
+  // TODO Make root invisible
   update(root);
 });
 
