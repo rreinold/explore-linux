@@ -1,4 +1,14 @@
 const DEBUG = false
+const TYPE_COLUMN="field1"
+const NAME_COLUMN="field2"
+const PARENT_COLUMN="field4"
+const RENAME_COLUMN="field9"
+// TODO This is actually dynamic
+const SECOND_RENAME_COLUMN="field12"
+
+const FROM_COLUMN="field3"
+const TO_COLUMN="field5"
+
 const NODE_INDICATOR="N"
 const CONNECTION_INDICATOR="C"
 
@@ -36,9 +46,10 @@ function transform(toParse){
 function transformNodes(raw){
 	var nodes = {}
 	for(i of raw.n){
-		if(i["#"] === NODE_INDICATOR){
-			nodes[i.Name] = {
-				name:i.Namechange2 || i.Namechange || i.Name,
+		if(i[TYPE_COLUMN] === NODE_INDICATOR){
+			if (DEBUG) console.log(i[NAME_COLUMN])
+			nodes[i[NAME_COLUMN]] = {
+				name:i[RENAME_COLUMN] || i[NAME_COLUMN], // TODO Account for second_ rename
 				children:[],
 				size:0
 			}
@@ -52,9 +63,9 @@ function connect(nodes, raw){
 
 	for(i of connections){
 		// parent
-		var from = i.From
+		var from = i[FROM_COLUMN]
 		// child
-		var to = i.To
+		var to = i[TO_COLUMN]
 		if(!to || !from) {
 			if (DEBUG) console.log(`Null to:${to} or from:${from} value, i:${JSON.stringify(i)}`)
 			continue;
@@ -68,9 +79,9 @@ function connect(nodes, raw){
 function lookupBirthCerts(nodes,raw){
 	for(i of raw.n){
 		// parent
-		var from = i.Parent
+		var from = i[PARENT_COLUMN]
 		// child
-		var to = i.Name
+		var to = i[NAME_COLUMN]
 		if(!to || !from) {
 			if (DEBUG) console.log(`Info: Null child:${to} or parent:${from} value, i:${JSON.stringify(i)}`)
 			continue;
@@ -104,8 +115,6 @@ function addConnection(nodes,to,from){
 }
 
 function print(graph){
-
-
 	var rootNode = {name:"root",children:[]}
 	var domains = ["Debian","Slackware","Red Hat","Enoch","Arch","Android"].forEach(function(e){
 		rootNode.children.push(graph[e])
