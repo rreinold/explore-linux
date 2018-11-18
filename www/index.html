@@ -161,7 +161,7 @@ $("#searchName").on("select2-selecting", function(e) {
 
 //===============================================
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 960 - margin.right - margin.left,
+    width = 1440 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
     
 var i = 0,
@@ -257,7 +257,7 @@ function update(source) {
       .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeUpdate.select("circle")
-      .attr("r", 4.5)
+      .attr("r", 6)
       .style("fill", function(d) {
             if (d.class === "found") {
                 return "#ff4136"; //red
