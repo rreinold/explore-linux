@@ -49,7 +49,7 @@ function transformNodes(raw){
 		if(i[TYPE_COLUMN] === NODE_INDICATOR){
 			if (DEBUG) console.log(i[NAME_COLUMN])
 			nodes[i[NAME_COLUMN]] = {
-				name:i[RENAME_COLUMN] || i[NAME_COLUMN], // TODO Account for second_ rename
+				name:i[SECOND_RENAME_COLUMN] || i[RENAME_COLUMN] || i[NAME_COLUMN], // TODO Account for second_ rename
 				children:[],
 				size:0
 			}
